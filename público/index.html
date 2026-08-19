@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHRandom - Chat Anónimo con Extraños</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #FF6B6B, #FF8E72, #FFB347, #FF6B9D, #C06C84);
+      background-size: 400% 400%;
+      animation: gradient 8s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .main {
+      text-align: center;
+      color: white;
+      max-width: 600px;
+    }
+    
+    .emoji {
+      font-size: 100px;
+      margin-bottom: 30px;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+    
+    h1 {
+      font-size: 60px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    }
+    
+    .subtitle {
+      font-size: 22px;
+      margin-bottom: 20px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+    
+    .box {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .feature {
+      margin: 15px 0;
+      font-size: 16px;
+    }
+    
+    .big-button {
+      background: linear-gradient(45deg, #FF6B6B, #FF8E72);
+      color: white;
+      border: none;
+      padding: 20px 60px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 20px 0;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .big-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    
+    .big-button:active {
+      transform: scale(0.98);
+    }
+    
+    .counter {
+      font-size: 18px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #4ade80;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 45px;
+      }
+      
+      .subtitle {
+        font-size: 18px;
+      }
+      
+      .emoji {
+        font-size: 80px;
+      }
+      
+      .big-button {
+        padding: 15px 40px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="emoji">💬</div>
+    
+    <h1>CHRandom</h1>
+    <div class="subtitle">Conecta con extraños anónimos en tiempo real</div>
+    
+    <div class="counter">
+      <span class="dot"></span>
+      <span id="users">0</span> personas activas ahora
+    </div>
+    
+    <div class="box">
+      <div class="feature">✅ Totalmente anónimo</div>
+      <div class="feature">⚡ Matcheo instantáneo</div>
+      <div class="feature">🌍 Conoce nuevas personas</div>
+      <div class="feature">🔒 Conversaciones privadas</div>
+    </div>
+    
+    <button class="big-button" onclick="window.location.href='/chat.html'">
+      EMPEZAR AHORA
+    </button>
+    
+    <div style="margin-top: 40px; opacity: 0.8;">
+      © 2026 CHRandom - Chat Anónimo
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+    socket.on("estado_cola", (cantidad) => {
+      document.getElementById("users").textContent = cantidad;
+    });
+  </script>
+</body>
+</html>
